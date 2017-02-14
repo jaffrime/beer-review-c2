@@ -1,6 +1,7 @@
 $(document).ready(function(){
 
   var beers = [];
+  var sortDescending = false; //sort marker
 
   var addBeer = function(name, category, rating) {
     var newBeer = {
@@ -9,6 +10,7 @@ $(document).ready(function(){
       "rating": rating
     };
     beers.push(newBeer);
+    sortDescending = false;
   };
 
   var updateBeers = function () {
@@ -26,6 +28,21 @@ $(document).ready(function(){
       addBeer(beerName, beerCat, beerRating);
       updateBeers();
   });
+
+  $('.sort-beer').on('click', function(){
+      if (!sortDescending) {
+        sortDescending = true;
+        beers.sort(function(a,b) {
+          return b.rating - a.rating;
+        })
+      } else {
+        sortDescending = false;
+        beers.sort(function(a,b) {
+          return a.rating - b.rating;
+        })
+      }
+      updateBeers();
+    });
 
   console.log(beers);
 
